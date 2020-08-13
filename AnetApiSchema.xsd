@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:anet="AnetApi/xml/v1/schema/AnetApiSchema.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="AnetApi/xml/v1/schema/AnetApiSchema.xsd" elementFormDefault="qualified">
-  <!-- 
+  <!--
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
    Request type definitions begin here
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -80,6 +80,12 @@
   <xs:complexType name="ArrayOfPermissionType">
     <xs:sequence>
       <xs:element name="permission" type="anet:permissionType" nillable="false" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!-- ===================================================== -->
+  <xs:complexType name="ArrayOfContactDetail">
+    <xs:sequence>
+      <xs:element name="contactDetail" type="anet:ContactDetailType" nillable="false" minOccurs="0" maxOccurs="unbounded"></xs:element>
     </xs:sequence>
   </xs:complexType>
   <!-- ===================================================== -->
@@ -419,7 +425,7 @@
       <xs:element name="marketType" type="xs:string" default="2" minOccurs="0"/>
       <xs:element name="deviceType" type="xs:string" minOccurs="0"/>
       <xs:element name="customerSignature" type="xs:string" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="terminalNumber" type="xs:string" minOccurs="0" maxOccurs="1"/>      
+      <xs:element name="terminalNumber" type="xs:string" minOccurs="0" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
   <!-- ===================================================== -->
@@ -470,8 +476,8 @@
           <!-- If the CardNumber passed in is a paymentToken, a cryptogram is needed for one-off payments. -->
           <xs:element name="cryptogram" type="xs:string" minOccurs="0"/>
           <!-- This is only needed for chase pay. -->
-          <xs:element name="tokenRequestorName" type="xs:string" minOccurs="0" maxOccurs="1"/>		         
-	        <!-- This is only needed for chase pay. -->
+          <xs:element name="tokenRequestorName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+          <!-- This is only needed for chase pay. -->
           <xs:element name="tokenRequestorId" type="xs:string" minOccurs="0" maxOccurs="1"/>
           <!-- This is only needed for chase pay. -->
           <xs:element name="tokenRequestorEci" type="xs:string" minOccurs="0" maxOccurs="1"/>
@@ -602,6 +608,7 @@
       <xs:element name="dataDescriptor" type="xs:string" minOccurs="1" maxOccurs="1"/>
       <xs:element name="dataValue" type="xs:string" minOccurs="1" maxOccurs="1"/>
       <xs:element name="dataKey" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="expirationTimeStamp" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
   <!-- ===================================================== -->
@@ -651,7 +658,7 @@
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
-     <xs:element name="tokenRequestorId" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="tokenRequestorId" type="xs:string" minOccurs="0" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
   <!-- ===================================================== -->
@@ -664,7 +671,7 @@
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
-    
+
       <xs:element name="description" minOccurs="0">
         <xs:simpleType>
           <xs:restriction base="xs:string">
@@ -673,11 +680,11 @@
         </xs:simpleType>
       </xs:element>
 
-      <xs:element name="discountAmount" minOccurs="0" type="xs:decimal"/>        
+      <xs:element name="discountAmount" minOccurs="0" type="xs:decimal"/>
 
       <xs:element name="taxIsAfterDiscount" type="xs:boolean" minOccurs="0">
       </xs:element>
-      
+
       <xs:element name="totalTaxTypeCode" minOccurs="0">
         <xs:simpleType>
           <xs:restriction base="xs:string">
@@ -727,7 +734,7 @@
       </xs:element>
 
       <xs:element name="purchaseOrderDateUTC" minOccurs="0" type="xs:date"/>
-      
+
 
       <xs:element name="supplierOrderReference" minOccurs="0">
         <xs:simpleType>
@@ -787,7 +794,7 @@
 
     </xs:sequence>
   </xs:complexType>
-  
+
   <!-- ===================================================== -->
   <xs:complexType name="orderExType">
     <xs:complexContent>
@@ -1012,9 +1019,9 @@
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
-          <xs:element name="token" type="anet:webCheckOutDataTypeToken" minOccurs="0" maxOccurs="1"/>
-          <xs:element name="bankToken" type="anet:bankAccountType" minOccurs="0" maxOccurs="1"/>
-      </xs:sequence>
+      <xs:element name="token" type="anet:webCheckOutDataTypeToken" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="bankToken" type="anet:bankAccountType" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
   </xs:complexType>
   <xs:complexType name="securePaymentContainerErrorType">
     <xs:sequence>
@@ -1238,106 +1245,106 @@
       <xs:element name="deviceActivation" type="anet:deviceActivationEnum" minOccurs="0" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
-    <!-- 
+  <!--
 	===================================================================
 	subMerchantType
 	These are the fields that are used for a transaction request.
 	===================================================================
 	-->
-    <xs:complexType name="subMerchantType">
-        <xs:sequence>
-            <xs:element name="identifier" minOccurs="1" maxOccurs="1">
-              <xs:simpleType>
-                <xs:restriction base="xs:string">
-                  <xs:maxLength value="40" />
-                </xs:restriction>
-              </xs:simpleType>
-            </xs:element>
-            <xs:element name="doingBusinessAs" minOccurs="0" maxOccurs="1">
-              <xs:simpleType>
-                <xs:restriction base="xs:string">
-                  <xs:maxLength value="50" />
-                </xs:restriction>
-              </xs:simpleType>
-            </xs:element>
-            <xs:element name="paymentServiceProviderName" minOccurs="0" maxOccurs="1">
-              <xs:simpleType>
-                <xs:restriction base="xs:string">
-                  <xs:maxLength value="40" />
-                </xs:restriction>
-              </xs:simpleType>
-            </xs:element>
-            <xs:element name="paymentServiceFacilitator" minOccurs="0" maxOccurs="1">
-              <xs:simpleType>
-                <xs:restriction base="xs:string">
-                  <xs:maxLength value="20" />
-                </xs:restriction>
-              </xs:simpleType>
-            </xs:element>
-            <xs:element name="streetAddress" minOccurs="0" maxOccurs="1">
-              <xs:simpleType>
-                <xs:restriction base="xs:string">
-                  <xs:maxLength value="40" />
-                </xs:restriction>
-              </xs:simpleType>
-            </xs:element>
-            <xs:element name="phone" minOccurs="0" maxOccurs="1">
-              <xs:simpleType>
-                <xs:restriction base="xs:string">
-                  <xs:maxLength value="20" />
-                </xs:restriction>
-              </xs:simpleType>
-            </xs:element>
-            <xs:element name="email" minOccurs="0" maxOccurs="1">
-              <xs:simpleType>
-                <xs:restriction base="xs:string">
-                  <xs:maxLength value="40" />
-                </xs:restriction>
-              </xs:simpleType>
-            </xs:element>
-            <xs:element name="postalCode" minOccurs="0" maxOccurs="1">
-              <xs:simpleType>
-                <xs:restriction base="xs:string">
-                  <xs:maxLength value="20" />
-                </xs:restriction>
-              </xs:simpleType>
-            </xs:element>
-            <xs:element name="city" minOccurs="0" maxOccurs="1">
-              <xs:simpleType>
-                <xs:restriction base="xs:string">
-                  <xs:maxLength value="30" />
-                </xs:restriction>
-              </xs:simpleType>
-            </xs:element>
-            <xs:element name="regionCode" minOccurs="0" maxOccurs="1">
-              <xs:simpleType>
-                <xs:restriction base="xs:string">
-                  <xs:maxLength value="10" />
-                </xs:restriction>
-              </xs:simpleType>
-            </xs:element>
-            <xs:element name="countryCode" minOccurs="0" maxOccurs="1">
-              <xs:simpleType>
-                <xs:restriction base="xs:string">
-                  <xs:maxLength value="10" />
-                </xs:restriction>
-              </xs:simpleType>
-            </xs:element>
-        </xs:sequence>
-    </xs:complexType>
+  <xs:complexType name="subMerchantType">
+    <xs:sequence>
+      <xs:element name="identifier" minOccurs="1" maxOccurs="1">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="40" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="doingBusinessAs" minOccurs="0" maxOccurs="1">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="paymentServiceProviderName" minOccurs="0" maxOccurs="1">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="40" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="paymentServiceFacilitator" minOccurs="0" maxOccurs="1">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="20" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="streetAddress" minOccurs="0" maxOccurs="1">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="40" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="phone" minOccurs="0" maxOccurs="1">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="20" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="email" minOccurs="0" maxOccurs="1">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="40" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="postalCode" minOccurs="0" maxOccurs="1">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="20" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="city" minOccurs="0" maxOccurs="1">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="30" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="regionCode" minOccurs="0" maxOccurs="1">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="10" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="countryCode" minOccurs="0" maxOccurs="1">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="10" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
 
-    <!-- 
+  <!--
 	===================================================================
 	transactionRequestType
 	These are the fields that are used for a transaction request.
 	===================================================================
 	-->
-	<xs:complexType name="transactionRequestType">
-		<xs:sequence>
-			<xs:element name="transactionType" type="xs:string" />
-			<xs:element name="amount" type="xs:decimal" minOccurs="0" />
+  <xs:complexType name="transactionRequestType">
+    <xs:sequence>
+      <xs:element name="transactionType" type="xs:string" />
+      <xs:element name="amount" type="xs:decimal" minOccurs="0" />
       <xs:element name="currencyCode" type="xs:string" minOccurs="0" maxOccurs="1"></xs:element>
-			<xs:element name="payment" type="anet:paymentType" minOccurs="0" />
+      <xs:element name="payment" type="anet:paymentType" minOccurs="0" />
       <xs:element name="profile" type="anet:customerProfilePaymentType" minOccurs="0"/>
       <xs:element name="solution" type="anet:solutionType" minOccurs="0"/>
       <xs:element name="callId" type="xs:string" minOccurs="0" maxOccurs="1"/>
@@ -1347,7 +1354,7 @@
       <xs:element name="splitTenderId" type="xs:string" minOccurs="0"/>
       <xs:element name="order" type="anet:orderType" minOccurs="0"/>
       <xs:element name="lineItems" type="anet:ArrayOfLineItem" minOccurs="0"/>
-      <xs:element name="tax" type="anet:extendedAmountType" minOccurs="0"/>      
+      <xs:element name="tax" type="anet:extendedAmountType" minOccurs="0"/>
       <xs:element name="duty" type="anet:extendedAmountType" minOccurs="0"/>
       <xs:element name="shipping" type="anet:extendedAmountType" minOccurs="0"/>
       <xs:element name="taxExempt" minOccurs="0">
@@ -1358,7 +1365,7 @@
       <xs:element name="poNumber" type="xs:string" minOccurs="0"/>
       <xs:element name="customer" type="anet:customerDataType" minOccurs="0"/>
       <xs:element name="billTo" type="anet:customerAddressType" minOccurs="0"/>
-      <xs:element name="shipTo" type="anet:nameAndAddressType" minOccurs="0"/>      
+      <xs:element name="shipTo" type="anet:nameAndAddressType" minOccurs="0"/>
       <xs:element name="customerIP" type="xs:string" minOccurs="0"/>
       <xs:element name="cardholderAuthentication" type="anet:ccAuthenticationType" minOccurs="0"/>
       <xs:element name="retail" type="anet:transRetailInfoType" minOccurs="0"/>
@@ -1538,11 +1545,11 @@
       <xs:enumeration value="hostedProfileValidationMode">
         <xs:annotation>
           <xs:documentation>
-      liveMode/testMode
-      liveMode: generates a transaction to the processor in the amount of 0.01 or 0.00. is immediately voided, if successful.
-      testMode: performs field validation only, all fields are validated except unrestricted field definitions (viz. telephone number) do not generate errors.
-      If a validation transaction is unsuccessful, the profile is not created, and the merchant receives an error.
-      </xs:documentation>
+            liveMode/testMode
+            liveMode: generates a transaction to the processor in the amount of 0.01 or 0.00. is immediately voided, if successful.
+            testMode: performs field validation only, all fields are validated except unrestricted field definitions (viz. telephone number) do not generate errors.
+            If a validation transaction is unsuccessful, the profile is not created, and the merchant receives an error.
+          </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="hostedProfileBillingAddressRequired">
@@ -1558,20 +1565,20 @@
       <xs:enumeration value="hostedProfileBillingAddressOptions">
         <xs:annotation>
           <xs:documentation>
-      showBillingAddress/showNone
-      showBillingAddress: Allow merchant to show billing address.
-      showNone : Hide billing address and billing name.
-      </xs:documentation>
+            showBillingAddress/showNone
+            showBillingAddress: Allow merchant to show billing address.
+            showNone : Hide billing address and billing name.
+          </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="hostedProfileManageOptions">
         <xs:annotation>
           <xs:documentation>
-      showAll/showPayment/ShowShipping
-      showAll: Shipping and Payment profiles are shown on the manage page, this is the default.
-      showPayment : Only Payment profiles are shown on the manage page.
-      showShipping : Only Shippiung profiles are shown on the manage page.
-      </xs:documentation>
+            showAll/showPayment/ShowShipping
+            showAll: Shipping and Payment profiles are shown on the manage page, this is the default.
+            showPayment : Only Payment profiles are shown on the manage page.
+            showShipping : Only Shippiung profiles are shown on the manage page.
+          </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="hostedPaymentIFrameCommunicatorUrl">
@@ -1629,7 +1636,7 @@
           <xs:documentation>JSON string. Used by sendCustomerTransactionReceipt method</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-       <xs:enumeration value="hostedProfilePaymentOptions">
+      <xs:enumeration value="hostedProfilePaymentOptions">
         <xs:annotation>
           <xs:documentation>
             showAll/showCreditCard/showBankAccount
@@ -1642,6 +1649,11 @@
       <xs:enumeration value="hostedProfileSaveButtonText">
         <xs:annotation>
           <xs:documentation>string. Used by getHostedProfilePage method to accept button text configuration.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="hostedPaymentVisaCheckoutOptions">
+        <xs:annotation>
+          <xs:documentation>string. Used by getHostedPaymentPage method to accept VisaCheckout configuration.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
     </xs:restriction>
@@ -1871,9 +1883,9 @@
   <xs:complexType name="otherTaxType">
     <xs:sequence>
 
-      <xs:element name="nationalTaxAmount" minOccurs="0" type="xs:decimal" />        
+      <xs:element name="nationalTaxAmount" minOccurs="0" type="xs:decimal" />
       <xs:element name="localTaxAmount" minOccurs="0" type="xs:decimal" />
-      <xs:element name="alternateTaxAmount" minOccurs="0" type="xs:decimal" />        
+      <xs:element name="alternateTaxAmount" minOccurs="0" type="xs:decimal" />
       <xs:element name="alternateTaxId" minOccurs="0">
         <xs:simpleType>
           <xs:restriction base="xs:string">
@@ -1890,11 +1902,11 @@
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
-      <xs:element name="vatTaxAmount" minOccurs="0"  type="xs:decimal" />      
+      <xs:element name="vatTaxAmount" minOccurs="0"  type="xs:decimal" />
     </xs:sequence>
   </xs:complexType>
   <!-- ===================================================== -->
-  <!-- ===================================================== -->  
+  <!-- ===================================================== -->
   <xs:complexType name="lineItemType">
     <xs:sequence>
       <xs:element name="itemId">
@@ -1937,7 +1949,7 @@
         </xs:simpleType>
       </xs:element>
       <xs:element name="taxable" minOccurs="0" type="xs:boolean" />
-      
+
       <xs:element name="unitOfMeasure" minOccurs="0">
         <xs:simpleType>
           <xs:restriction base="xs:string">
@@ -2008,8 +2020,8 @@
         </xs:simpleType>
       </xs:element>
 
-      <xs:element name="alternateTaxAmount" minOccurs="0" type="xs:decimal" />        
-      <xs:element name="totalAmount" minOccurs="0" type="xs:decimal" />     
+      <xs:element name="alternateTaxAmount" minOccurs="0" type="xs:decimal" />
+      <xs:element name="totalAmount" minOccurs="0" type="xs:decimal" />
       <xs:element name="commodityCode" minOccurs="0">
         <xs:simpleType>
           <xs:restriction base="xs:string">
@@ -2021,7 +2033,7 @@
       <xs:element name="productCode" minOccurs="0">
         <xs:simpleType>
           <xs:restriction base="xs:string">
-            <xs:maxLength value="15"/>
+            <xs:maxLength value="30"/>
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
@@ -2043,11 +2055,11 @@
         </xs:simpleType>
       </xs:element>
 
-      <xs:element name="discountAmount" minOccurs="0" type="xs:decimal" />       
-      <xs:element name="taxIncludedInTotal" minOccurs="0" type ="xs:boolean" />        
+      <xs:element name="discountAmount" minOccurs="0" type="xs:decimal" />
+      <xs:element name="taxIncludedInTotal" minOccurs="0" type ="xs:boolean" />
       <xs:element name="taxIsAfterDiscount" minOccurs="0" type="xs:boolean" >
       </xs:element>
-      
+
     </xs:sequence>
   </xs:complexType>
   <!-- ===================================================== -->
@@ -2297,7 +2309,7 @@
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
-      <xs:element name="tax" type="anet:extendedAmountType" minOccurs="0"/>      
+      <xs:element name="tax" type="anet:extendedAmountType" minOccurs="0"/>
       <xs:element name="shipping" type="anet:extendedAmountType" minOccurs="0"/>
       <xs:element name="duty" type="anet:extendedAmountType" minOccurs="0"/>
       <xs:element name="lineItems" type="anet:ArrayOfLineItem" minOccurs="0"/>
@@ -2312,7 +2324,7 @@
       <xs:element name="payment" type="anet:paymentMaskedType"/>
       <xs:element name="customer" type="anet:customerDataType" minOccurs="0"/>
       <xs:element name="billTo" type="anet:customerAddressType" minOccurs="0"/>
-      <xs:element name="shipTo" type="anet:nameAndAddressType" minOccurs="0"/>      
+      <xs:element name="shipTo" type="anet:nameAndAddressType" minOccurs="0"/>
       <xs:element name="recurringBilling" type="xs:boolean" minOccurs="0"/>
       <xs:element name="customerIP" type="xs:string" minOccurs="0"/>
       <xs:element name="product" type="xs:string" minOccurs="0"/>
@@ -2339,7 +2351,7 @@
       <xs:element name="profile" type="anet:customerProfileIdType" minOccurs="0"/>
       <xs:element name="surcharge" type="anet:extendedAmountType" minOccurs="0"/>
       <xs:element name="employeeId" type="xs:string" minOccurs="0" />
-      <xs:element name="tip" type="anet:extendedAmountType" minOccurs="0"/>            
+      <xs:element name="tip" type="anet:extendedAmountType" minOccurs="0"/>
       <xs:element name="otherTax" minOccurs="0" type="anet:otherTaxType" />
       <xs:element name="shipFrom"  minOccurs="0" type="anet:nameAndAddressType" />
     </xs:sequence>
@@ -2531,11 +2543,38 @@
       <xs:element name="networkTransId" type="anet:networkTransId" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
-  <!-- 
-  =================================================================== 
+  <!-- ===================================================== -->
+  <xs:complexType name="ContactDetailType">
+    <xs:sequence>
+      <xs:element name="email" minOccurs="0" maxOccurs="1">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="firstName"  minOccurs="0" maxOccurs="1">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="lastName" minOccurs="0" maxOccurs="1">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!--
+  ===================================================================
   The ANetApiRequest defines elements common to all API method
   requests.
-  =================================================================== 
+  ===================================================================
   -->
   <xs:complexType name="ANetApiRequest">
     <xs:sequence>
@@ -2572,17 +2611,17 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <!-- 
+  <!--
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
    Response type definitions begin here
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   -->
-  <!-- 
+  <!--
   ===================================================================
   The messagesType provides the result of the request. The resultCode
   element provides the overall result of the request. The individual
   message(s) provide more detail, especially for errors, about the result.
-  
+
   Ok - The request was processed and accepted without error. If any
     messages are present they will be informational only.
   Error - The request resulted in one or more errors. See messages
@@ -2608,9 +2647,9 @@
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <!-- 
+  <!--
   ===================================================================
-  The ANetApiResponse defines elements common to all API method 
+  The ANetApiResponse defines elements common to all API method
   responses.
   ===================================================================
   -->
@@ -2623,12 +2662,12 @@
       <xs:element name="sessionToken" type="xs:string" minOccurs="0" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
-  <!-- 
+  <!--
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-   API method definitions begin here       
+   API method definitions begin here
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   -->
-  <!-- 
+  <!--
   ===================================================================
   errorResponse
   This is the response when an error occurs before the method can
@@ -2636,7 +2675,7 @@
   ===================================================================
   -->
   <xs:element name="ErrorResponse" type="anet:ANetApiResponse"/>
-  <!-- 
+  <!--
   ===================================================================
   isAliveRequest
   This method is used to test the availability of the API.
@@ -2655,7 +2694,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   isAliveResponse
   This is the response to isAliveRequest.
@@ -2668,7 +2707,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   authenticateTestRequest
   This method is used to test the availability of the API.
@@ -2681,7 +2720,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   authenticateTestResponse
   This is the response to authenticateTestRequest.
@@ -2694,7 +2733,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   ARBCreateSubscriptionRequest
   This method is used to create a new ARB subscription.
@@ -2712,7 +2751,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   ARBCreateSubscriptionResponse
   This is the response to ARBCreateSubscriptionRequest.
@@ -2731,7 +2770,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   ARBUpdateSubscriptionRequest
   This method is used to update an existing ARB subscription.
@@ -2750,7 +2789,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   ARBUpdateSubscriptionResponse
   This is the response to ARBUpdateSubscriptionResponse.
@@ -2767,7 +2806,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   ARBCancelSubscriptionRequest
   This method is used to cancel an existing ARB subscription.
@@ -2785,7 +2824,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   ARBCancelSubscriptionResponse
   This is the response to ARBCancelSubscriptionRequest.
@@ -2798,7 +2837,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   ARBGetSubscriptionStatusRequest
   This method is used to get the status of an existing ARB subscription.
@@ -2816,7 +2855,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   ARBGetSubscriptionStatusResponse
   This is the response to ARBGetSubscriptionStatusRequest.
@@ -2833,10 +2872,10 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   createCustomerProfileRequest
-  This method is used to create a new customer profile along with any 
+  This method is used to create a new customer profile along with any
   customer payment profiles and customer shipping addresses for the customer profile.
   The merchant must be signed up for the CIM service to use it.
   ===================================================================
@@ -2853,7 +2892,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   createCustomerProfileResponse
   This is the response to createCustomerProfileRequest.
@@ -2874,7 +2913,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   createProfileResponse
   This is the partial response for createProfile in the transactionRequestType.
@@ -2889,7 +2928,7 @@
       <xs:element name="customerShippingAddressIdList" type="anet:ArrayOfNumericString" minOccurs="0" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
-  <!-- 
+  <!--
   ===================================================================
   createCustomerPaymentProfileRequest
   This method is used to create a new customer payment profile for an existing customer profile.
@@ -2909,7 +2948,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   createCustomerPaymentProfileResponse
   This is the response to createCustomerPaymentProfileRequest.
@@ -2920,7 +2959,7 @@
       <xs:complexContent>
         <xs:extension base="anet:ANetApiResponse">
           <xs:sequence>
-            <!-- customerPaymentProfileId and customerProfileId  will only be present 
+            <!-- customerPaymentProfileId and customerProfileId  will only be present
       if a payment profile was created or a duplicate payment profile was found. -->
             <xs:element name="customerProfileId" type="anet:numericString" minOccurs="0"/>
             <xs:element name="customerPaymentProfileId" type="anet:numericString" minOccurs="0"/>
@@ -2937,7 +2976,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   createCustomerShippingAddressRequest
   This method is used to create a new customer shipping address for an existing customer profile.
@@ -2957,7 +2996,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   createCustomerShippingAddressResponse
   This is the response to createCustomerShippingAddressRequest.
@@ -2968,7 +3007,7 @@
       <xs:complexContent>
         <xs:extension base="anet:ANetApiResponse">
           <xs:sequence>
-            <!-- customerAddressId and customerProfileId will only be present 
+            <!-- customerAddressId and customerProfileId will only be present
       if a shipping address was created or a duplicate shipping address was found. -->
             <xs:element name="customerProfileId" type="anet:numericString" minOccurs="0"/>
             <xs:element name="customerAddressId" type="anet:numericString" minOccurs="0"/>
@@ -2977,10 +3016,10 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   createCustomerProfileFromTransactionRequest
-  This method is used to create a Customer profile, payment profile, and shipping profile 
+  This method is used to create a Customer profile, payment profile, and shipping profile
   from an existing successful transaction.
   ===================================================================
   -->
@@ -3000,10 +3039,10 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   getCustomerProfileRequest
-  This method is used to retrieve an existing customer profile along with all the 
+  This method is used to retrieve an existing customer profile along with all the
   customer payment profiles and customer shipping addresses for the customer profile.
   The merchant must be signed up for the CIM service to use it.
   ===================================================================
@@ -3029,7 +3068,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   getCustomerProfileResponse
   This is the response to getCustomerProfileRequest.
@@ -3048,7 +3087,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   getCustomerPaymentProfileRequest
   This method is used to retrieve an existing customer payment profile for a customer profile.
@@ -3069,7 +3108,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   getCustomerPaymentProfileResponse
   This is the response to getCustomerPaymentProfileRequest.
@@ -3087,7 +3126,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   getCustomerShippingAddressRequest
   This method is used to retrieve an existing customer shipping address for a customer profile.
@@ -3106,7 +3145,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   getCustomerShippingAddressResponse
   This is the response to getCustomerShippingAddressRequest.
@@ -3126,7 +3165,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   updateCustomerProfileRequest
   This method is used to update an existing customer profile.
@@ -3144,7 +3183,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   updateCustomerProfileResponse
   This is the response to updateCustomerProfileRequest.
@@ -3157,7 +3196,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   updateCustomerPaymentProfileRequest
   This method is used to update an existing customer payment profile for a customer profile.
@@ -3177,7 +3216,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   updateCustomerPaymentProfileResponse
   This is the response to updateCustomerPaymentProfileRequest.
@@ -3201,7 +3240,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   updateCustomerShippingAddressRequest
   This method is used to update an existing customer shipping address for a customer profile.
@@ -3221,7 +3260,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   updateCustomerShippingAddressResponse
   This is the response to updateCustomerShippingAddressRequest.
@@ -3234,10 +3273,10 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   deleteCustomerProfileRequest
-  This method is used to delete an existing customer profile along with all the 
+  This method is used to delete an existing customer profile along with all the
   customer payment profiles and customer shipping addresses for the customer profile.
   The merchant must be signed up for the CIM service to use it.
   ===================================================================
@@ -3253,7 +3292,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   deleteCustomerProfileResponse
   This is the response to deleteCustomerProfileRequest.
@@ -3266,7 +3305,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   deleteCustomerPaymentProfileRequest
   This method is used to delete an existing customer payment profile from a customer profile.
@@ -3285,7 +3324,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   deleteCustomerPaymentProfileResponse
   This is the response to deleteCustomerPaymentProfileRequest.
@@ -3298,7 +3337,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   deleteCustomerShippingAddressRequest
   This method is used to delete an existing customer shipping address from a customer profile.
@@ -3317,7 +3356,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   deleteCustomerShippingAddressResponse
   This is the response to deleteCustomerShippingAddressRequest.
@@ -3330,7 +3369,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   createCustomerProfileTransactionRequest
   This method is used to generate a payment transaction for a customer payment profile.
@@ -3355,7 +3394,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   createCustomerProfileTransactionResponse
   This is the response to createCustomerProfileTransactionRequest.
@@ -3379,7 +3418,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   validateCustomerPaymentProfileRequest
   This method is used to check a customer payment profile by generating a test transaction for it.
@@ -3401,7 +3440,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   validateCustomerPaymentProfileResponse
   This is the response to validateCustomerPaymentProfileRequest.
@@ -3424,7 +3463,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   getCustomerProfileIdsRequest
   This method is used retrieve the customer profile ids for your account in case they get lost.
@@ -3438,7 +3477,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   getCustomerProfileIdsResponse
   This is the response to getCustomerProfileIdsRequest.
@@ -3455,7 +3494,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   updateSplitTenderGroupRequest
   This method is used to void or release an order after getting a partial authorization for a transaction.
@@ -3473,7 +3512,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   updateSplitTenderGroupResponse
   This is the response to updateSplitTenderGroupRequest.
@@ -3486,7 +3525,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   getTransactionDetailsRequest
   This method is used to retrieve detailed information about a single transaction.
@@ -3503,7 +3542,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   getTransactionDetailsResponse
   This is the response to getTransactionDetailsRequest.
@@ -3535,7 +3574,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   createTransactionRequest
   This method is used to process transactions.
@@ -3571,7 +3610,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   heldTransactionRequestType
   These are the fields that are used for a FDS transaction request.
@@ -3583,7 +3622,7 @@
       <xs:element name="refTransId" type="xs:string" minOccurs="1" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
-  <!-- 
+  <!--
   ===================================================================
   updateHeldTransactionRequest
   This method is used to approve or decline suspicious transactions.
@@ -3618,7 +3657,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   getBatchStatisticsRequest
   This method is used to get the batch details for the specified BatchId
@@ -3635,7 +3674,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   getBatchStatisticsResponse
   This is the response to getBatchStatisticsRequest.
@@ -3652,7 +3691,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   getSettledBatchListRequest
   This method is used to retrieve a list of settled batches.
@@ -3671,7 +3710,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   getSettledBatchListResponse
   This is the response to getSettledBatchListRequest.
@@ -3688,7 +3727,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   getTransactionListRequest
   This method is used to retrieve a list of settled transactions.
@@ -3707,7 +3746,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   getTransactionListResponse
   This is the response to getTransactionListRequest.
@@ -3725,7 +3764,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   getHostedProfilePageRequest
   This method is used to give access to the hosted customer profile page to one of your customers.
@@ -3748,7 +3787,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   getHostedProfilePageResponse
   This is the response to getHostedProfilePageRequest.
@@ -3765,7 +3804,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   getUnsettledTransactionListRequest
   This method is used to retrieve a list of unsettled transactions.
@@ -3806,7 +3845,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   getHostedPaymentPageResponse
   This is the response to getHostedPaymentPageRequest.
@@ -3835,7 +3874,7 @@
       <xs:element name="orderDescending" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
-  <!-- 
+  <!--
   ===================================================================
   getUnsettledTransactionListResponse
   This is the response to getUnsettledTransactionListRequest.
@@ -3870,7 +3909,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   mobileDeviceRegistrationResponse
   This is the response to mobileDeviceRegistrationRequest.
@@ -3896,7 +3935,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   mobileDeviceLoginResponse
   This is the response to mobileDeviceLoginRequest.
@@ -3928,7 +3967,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   logoutResponse
   This is the response to logoutRequest.
@@ -3941,7 +3980,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   sendCustomerTransactionReceiptRequest
   This method is used to send a transaction email receipt.
@@ -3960,7 +3999,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   sendCustomerTransactionReceiptResponse
   This is the response to sendCustomerTransactionReceiptRequest.
@@ -3973,7 +4012,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!-- 
+  <!--
   ===================================================================
   PayPal Payment Type.
   ===================================================================
@@ -4254,7 +4293,7 @@ Payment Profile Type.
       <xs:element name="paymentProfile" type="anet:customerPaymentProfileListItemType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
-  <!--  
+  <!--
   ===================================================================
   ARBGetSubscriptionRequest
   This method is used to get details of an existing ARB subscription.
@@ -4275,7 +4314,7 @@ Payment Profile Type.
   </xs:element>
   <!--
 ===================================================================
-Get ARBSubscription Response 
+Get ARBSubscription Response
 ===================================================================
 -->
   <xs:element name="ARBGetSubscriptionResponse">
@@ -4322,7 +4361,7 @@ The merchant must be signed up for the CIM service to use it.
       <xs:element name="customerAddressId" type="anet:numericString" minOccurs="0" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
-  <!--  
+  <!--
   ===================================================================
   Get AUJobSummary Request
   This method is used to get summary of jobs done by Account Updater.
@@ -4376,7 +4415,7 @@ The merchant must be signed up for the CIM service to use it.
       <xs:element name="reasonDescription" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-  <!--  
+  <!--
   ===================================================================
   Get AUJobDetails Request
   This method is used to get summary of jobs done by Account Updater.
@@ -4424,7 +4463,7 @@ The merchant must be signed up for the CIM service to use it.
         <xs:extension base="anet:ANetApiResponse">
           <xs:sequence>
             <xs:element name="totalNumInResultSet" type="xs:int" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="auDetails" type="anet:ListOfAUDetailsType" minOccurs="0"/>
+            <xs:element name="auDetails" type="anet:ListOfAUDetailsType" minOccurs="0" maxOccurs="unbounded"/>
           </xs:sequence>
         </xs:extension>
       </xs:complexContent>
@@ -4432,27 +4471,11 @@ The merchant must be signed up for the CIM service to use it.
   </xs:element>
   <!-- ===================================================== -->
   <xs:complexType name="ListOfAUDetailsType">
-    <xs:choice maxOccurs="unbounded">
-      <xs:element name="auUpdate" type="anet:auUpdateType" minOccurs="0"/>
-      <xs:element name="auDelete" type="anet:auDeleteType" minOccurs="0"/>
-    </xs:choice>
-  </xs:complexType>
-  <!-- ===================================================== -->
-  <xs:complexType name="auUpdateType">
     <xs:complexContent>
       <xs:extension base="anet:auDetailsType">
         <xs:sequence>
           <xs:element name="newCreditCard" type="anet:creditCardMaskedType"/>
           <xs:element name="oldCreditCard" type="anet:creditCardMaskedType"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <!-- ===================================================== -->
-  <xs:complexType name="auDeleteType">
-    <xs:complexContent>
-      <xs:extension base="anet:auDetailsType">
-        <xs:sequence>
           <xs:element name="creditCard" type="anet:creditCardMaskedType"/>
         </xs:sequence>
       </xs:extension>
@@ -4470,7 +4493,7 @@ The merchant must be signed up for the CIM service to use it.
       <xs:element name="reasonDescription" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-  <!--  
+  <!--
   ===================================================================
   Get MerchantDetails Request
   This method is used to get merchant capabilities.
@@ -4490,7 +4513,7 @@ The merchant must be signed up for the CIM service to use it.
       <xs:maxLength value="3"/>
     </xs:restriction>
   </xs:simpleType>
-  <!--  
+  <!--
   ==============================================================================
   Processing Options type
   Processing Options are used to pass additional transaction processing options
@@ -4504,10 +4527,10 @@ The merchant must be signed up for the CIM service to use it.
       <xs:element name="isStoredCredentials"      type="xs:boolean" minOccurs="0" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
-  <!--  
+  <!--
   ==============================================================================
   Subsequent Auth Information type
-  Subsequent Auth Information is used to pass additional information for 
+  Subsequent Auth Information is used to pass additional information for
   Merchant-Initiated transactions
   ==============================================================================
   -->
@@ -4517,7 +4540,7 @@ The merchant must be signed up for the CIM service to use it.
       <xs:element name="reason"                 type="anet:merchantInitTransReasonEnum" minOccurs="0" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
-  <!--  
+  <!--
   ==============================================================================
   Credit Card processing network transaction id
   ==============================================================================
@@ -4527,7 +4550,7 @@ The merchant must be signed up for the CIM service to use it.
       <xs:maxLength value="255"/>
     </xs:restriction>
   </xs:simpleType>
-  <!--  
+  <!--
   ==============================================================================
   Reason for Merchant Initiated Transaction
   ==============================================================================
@@ -4540,11 +4563,11 @@ The merchant must be signed up for the CIM service to use it.
       <xs:enumeration value="noShow"/>
     </xs:restriction>
   </xs:simpleType>
-  
+
   <!--
   ===================================================================
   ArrayOfCurrencyCode
-  =================================================================== 
+  ===================================================================
   -->
   <xs:complexType name="ArrayOfCurrencyCode">
     <xs:sequence>
@@ -4555,14 +4578,14 @@ The merchant must be signed up for the CIM service to use it.
   <!--
   ===================================================================
   ArrayOfCardType
-  =================================================================== 
+  ===================================================================
   -->
   <xs:complexType name="ArrayOfCardType">
     <xs:sequence>
       <xs:element name="cardType" type="xs:string" nillable="true" minOccurs="0" maxOccurs="30"/>
     </xs:sequence>
   </xs:complexType>
-  
+
   <!--============= processorType ======================================================-->
   <xs:complexType name="processorType">
     <xs:sequence>
@@ -4580,7 +4603,7 @@ The merchant must be signed up for the CIM service to use it.
   <!--
   ===================================================================
   ArrayOfProcessorType
-  =================================================================== 
+  ===================================================================
   -->
   <xs:complexType name="ArrayOfProcessorType">
     <xs:sequence>
@@ -4590,7 +4613,7 @@ The merchant must be signed up for the CIM service to use it.
   <!--
   ===================================================================
   marketType
-  Name of the marketType. 
+  Name of the marketType.
   ===================================================================
   -->
   <xs:simpleType name="marketType">
@@ -4601,7 +4624,7 @@ The merchant must be signed up for the CIM service to use it.
   <!--
   ===================================================================
   ArrayOfMarketType
-  =================================================================== 
+  ===================================================================
   -->
   <xs:complexType name="ArrayOfMarketType">
     <xs:sequence>
@@ -4611,7 +4634,7 @@ The merchant must be signed up for the CIM service to use it.
   <!--
   ===================================================================
   productCodeType
-  Name of the productCode. 
+  Name of the productCode.
   ===================================================================
   -->
   <xs:simpleType name="productCodeType">
@@ -4622,14 +4645,14 @@ The merchant must be signed up for the CIM service to use it.
   <!--
   ===================================================================
   ArrayOfProductCode
-  =================================================================== 
+  ===================================================================
   -->
   <xs:complexType name="ArrayOfProductCode">
     <xs:sequence>
       <xs:element name="productCode" type="anet:productCodeType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
-  <!-- 
+  <!--
   ===================================================================
   paymentMethodsType represents the array of payment methods.
   ===================================================================
@@ -4648,12 +4671,13 @@ The merchant must be signed up for the CIM service to use it.
       <xs:enumeration value="VisaCheckout"/>
       <xs:enumeration value="ApplePay"/>
       <xs:enumeration value="AndroidPay"/>
+      <xs:enumeration value="GooglePay"/>
     </xs:restriction>
   </xs:simpleType>
   <!--
   ===================================================================
   ArrayOfPaymentMethod
-  =================================================================== 
+  ===================================================================
   -->
   <xs:complexType name="ArrayOfPaymentMethod">
     <xs:sequence>
@@ -4716,12 +4740,21 @@ The merchant must be signed up for the CIM service to use it.
             <xs:element name="paymentMethods" type="anet:ArrayOfPaymentMethod"/>
             <xs:element name="currencies" type="anet:ArrayOfCurrencyCode"/>
             <xs:element name="publicClientKey" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="businessInformation" type="anet:customerAddressType" minOccurs="0" maxOccurs="1" />
+            <xs:element name="merchantTimeZone" minOccurs="0"  maxOccurs="1">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:maxLength value="100"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element name="contactDetails" type="anet:ArrayOfContactDetail" minOccurs="0" />
           </xs:sequence>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!--  
+  <!--
   ===================================================================
   Update MerchantDetails Request
   This method is used for a partner to update merchant details.
@@ -4738,7 +4771,7 @@ The merchant must be signed up for the CIM service to use it.
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <!--  
+  <!--
   ===================================================================
   Update MerchantDetails Response
   This method is used for a partner to update merchant details.
@@ -4748,6 +4781,43 @@ The merchant must be signed up for the CIM service to use it.
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="anet:ANetApiResponse"/>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <!--
+  ===================================================================
+  getCustomerPaymentProfileNonceRequest
+  This method is used to get Nonce (payment token) for an existing customer payment profile for a customer profile.
+  ===================================================================
+  -->
+  <xs:element name="getCustomerPaymentProfileNonceRequest">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="anet:ANetApiRequest">
+          <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="connectedAccessToken" type="xs:string"/>
+            <xs:element name="customerProfileId" type="anet:numericString" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="customerPaymentProfileId" type="anet:numericString" minOccurs="1" maxOccurs="1"/>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <!--
+  ===================================================================
+  getCustomerPaymentProfileNonceResponse
+  ===================================================================
+  -->
+  <xs:element name="getCustomerPaymentProfileNonceResponse">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="anet:ANetApiResponse">
+          <xs:sequence>
+            <xs:element name="opaqueData" type="anet:opaqueDataType" minOccurs="0" maxOccurs="1"/>
+          </xs:sequence>
+        </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>

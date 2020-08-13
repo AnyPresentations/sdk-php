@@ -5,7 +5,7 @@ namespace net\authorize\api\contract\v1;
 /**
  * Class representing SubsequentAuthInformationType
  *
- * 
+ *
  * XSD Type: subsequentAuthInformation
  */
 class SubsequentAuthInformationType implements \JsonSerializable

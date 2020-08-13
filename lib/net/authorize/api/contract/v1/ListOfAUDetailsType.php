@@ -5,131 +5,279 @@ namespace net\authorize\api\contract\v1;
 /**
  * Class representing ListOfAUDetailsType
  *
- * 
+ *
  * XSD Type: ListOfAUDetailsType
  */
-class ListOfAUDetailsType implements \JsonSerializable
+class ListOfAUDetailsType extends AuDetailsType implements \JsonSerializable
 {
 
     /**
-     * @property \net\authorize\api\contract\v1\AuUpdateType[] $auUpdate
+     * @property \net\authorize\api\contract\v1\CreditCardMaskedType $newCreditCard
      */
-    private $auUpdate = null;
+    private $newCreditCard = null;
 
     /**
-     * @property \net\authorize\api\contract\v1\AuDeleteType[] $auDelete
+     * @property \net\authorize\api\contract\v1\CreditCardMaskedType $oldCreditCard
      */
-    private $auDelete = null;
+    private $oldCreditCard = null;
 
     /**
-     * Adds as auUpdate
+     * @property \net\authorize\api\contract\v1\CreditCardMaskedType $creditCard
+     */
+    private $creditCard = null;
+
+    /**
+     * @property integer $customerProfileID
+     */
+    private $customerProfileID = null;
+
+    /**
+     * @property integer $customerPaymentProfileID
+     */
+    private $customerPaymentProfileID = null;
+
+    /**
+     * @property string $firstName
+     */
+    private $firstName = null;
+
+    /**
+     * @property string $lastName
+     */
+    private $lastName = null;
+
+    /**
+     * @property string $updateTimeUTC
+     */
+    private $updateTimeUTC = null;
+
+    /**
+     * @property string $auReasonCode
+     */
+    private $auReasonCode = null;
+
+    /**
+     * @property string $reasonDescription
+     */
+    private $reasonDescription = null;
+
+    /**
+     * Gets as newCreditCard
      *
-     * @return self
-     * @param \net\authorize\api\contract\v1\AuUpdateType $auUpdate
+     * @return \net\authorize\api\contract\v1\CreditCardMaskedType
      */
-    public function addToAuUpdate(\net\authorize\api\contract\v1\AuUpdateType $auUpdate)
+    public function getNewCreditCard()
     {
-        $this->auUpdate[] = $auUpdate;
+        return $this->newCreditCard;
+    }
+
+    /**
+     * Sets a new newCreditCard
+     *
+     * @param \net\authorize\api\contract\v1\CreditCardMaskedType $newCreditCard
+     * @return self
+     */
+    public function setNewCreditCard(\net\authorize\api\contract\v1\CreditCardMaskedType $newCreditCard)
+    {
+        $this->newCreditCard = $newCreditCard;
         return $this;
     }
 
     /**
-     * isset auUpdate
+     * Gets as oldCreditCard
      *
-     * @param scalar $index
-     * @return boolean
+     * @return \net\authorize\api\contract\v1\CreditCardMaskedType
      */
-    public function issetAuUpdate($index)
+    public function getOldCreditCard()
     {
-        return isset($this->auUpdate[$index]);
+        return $this->oldCreditCard;
     }
 
     /**
-     * unset auUpdate
+     * Sets a new oldCreditCard
      *
-     * @param scalar $index
-     * @return void
-     */
-    public function unsetAuUpdate($index)
-    {
-        unset($this->auUpdate[$index]);
-    }
-
-    /**
-     * Gets as auUpdate
-     *
-     * @return \net\authorize\api\contract\v1\AuUpdateType[]
-     */
-    public function getAuUpdate()
-    {
-        return $this->auUpdate;
-    }
-
-    /**
-     * Sets a new auUpdate
-     *
-     * @param \net\authorize\api\contract\v1\AuUpdateType[] $auUpdate
+     * @param \net\authorize\api\contract\v1\CreditCardMaskedType $oldCreditCard
      * @return self
      */
-    public function setAuUpdate(array $auUpdate)
+    public function setOldCreditCard(\net\authorize\api\contract\v1\CreditCardMaskedType $oldCreditCard)
     {
-        $this->auUpdate = $auUpdate;
+        $this->oldCreditCard = $oldCreditCard;
         return $this;
     }
 
     /**
-     * Adds as auDelete
+     * Gets as creditCard
      *
-     * @return self
-     * @param \net\authorize\api\contract\v1\AuDeleteType $auDelete
+     * @return \net\authorize\api\contract\v1\CreditCardMaskedType
      */
-    public function addToAuDelete(\net\authorize\api\contract\v1\AuDeleteType $auDelete)
+    public function getCreditCard()
     {
-        $this->auDelete[] = $auDelete;
+        return $this->creditCard;
+    }
+
+    /**
+     * Sets a new creditCard
+     *
+     * @param \net\authorize\api\contract\v1\CreditCardMaskedType $creditCard
+     * @return self
+     */
+    public function setCreditCard(\net\authorize\api\contract\v1\CreditCardMaskedType $creditCard)
+    {
+        $this->creditCard = $creditCard;
         return $this;
     }
 
     /**
-     * isset auDelete
+     * Gets as customerProfileID
      *
-     * @param scalar $index
-     * @return boolean
+     * @return integer
      */
-    public function issetAuDelete($index)
+    public function getCustomerProfileID()
     {
-        return isset($this->auDelete[$index]);
+        return $this->customerProfileID;
     }
 
     /**
-     * unset auDelete
+     * Sets a new customerProfileID
      *
-     * @param scalar $index
-     * @return void
-     */
-    public function unsetAuDelete($index)
-    {
-        unset($this->auDelete[$index]);
-    }
-
-    /**
-     * Gets as auDelete
-     *
-     * @return \net\authorize\api\contract\v1\AuDeleteType[]
-     */
-    public function getAuDelete()
-    {
-        return $this->auDelete;
-    }
-
-    /**
-     * Sets a new auDelete
-     *
-     * @param \net\authorize\api\contract\v1\AuDeleteType[] $auDelete
+     * @param integer $customerProfileID
      * @return self
      */
-    public function setAuDelete(array $auDelete)
+    public function setCustomerProfileID($customerProfileID)
     {
-        $this->auDelete = $auDelete;
+        $this->customerProfileID = $customerProfileID;
+        return $this;
+    }
+
+    /**
+     * Gets as customerPaymentProfileID
+     *
+     * @return integer
+     */
+    public function getCustomerPaymentProfileID()
+    {
+        return $this->customerPaymentProfileID;
+    }
+
+    /**
+     * Sets a new customerPaymentProfileID
+     *
+     * @param integer $customerPaymentProfileID
+     * @return self
+     */
+    public function setCustomerPaymentProfileID($customerPaymentProfileID)
+    {
+        $this->customerPaymentProfileID = $customerPaymentProfileID;
+        return $this;
+    }
+
+    /**
+     * Gets as firstName
+     *
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * Sets a new firstName
+     *
+     * @param string $firstName
+     * @return self
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+        return $this;
+    }
+
+    /**
+     * Gets as lastName
+     *
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * Sets a new lastName
+     *
+     * @param string $lastName
+     * @return self
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+        return $this;
+    }
+
+    /**
+     * Gets as updateTimeUTC
+     *
+     * @return string
+     */
+    public function getUpdateTimeUTC()
+    {
+        return $this->updateTimeUTC;
+    }
+
+    /**
+     * Sets a new updateTimeUTC
+     *
+     * @param string $updateTimeUTC
+     * @return self
+     */
+    public function setUpdateTimeUTC($updateTimeUTC)
+    {
+        $this->updateTimeUTC = $updateTimeUTC;
+        return $this;
+    }
+
+    /**
+     * Gets as auReasonCode
+     *
+     * @return string
+     */
+    public function getAuReasonCode()
+    {
+        return $this->auReasonCode;
+    }
+
+    /**
+     * Sets a new auReasonCode
+     *
+     * @param string $auReasonCode
+     * @return self
+     */
+    public function setAuReasonCode($auReasonCode)
+    {
+        $this->auReasonCode = $auReasonCode;
+        return $this;
+    }
+
+    /**
+     * Gets as reasonDescription
+     *
+     * @return string
+     */
+    public function getReasonDescription()
+    {
+        return $this->reasonDescription;
+    }
+
+    /**
+     * Sets a new reasonDescription
+     *
+     * @param string $reasonDescription
+     * @return self
+     */
+    public function setReasonDescription($reasonDescription)
+    {
+        $this->reasonDescription = $reasonDescription;
         return $this;
     }
 

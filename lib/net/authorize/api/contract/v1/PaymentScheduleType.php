@@ -5,7 +5,7 @@ namespace net\authorize\api\contract\v1;
 /**
  * Class representing PaymentScheduleType
  *
- * 
+ *
  * XSD Type: paymentScheduleType
  */
 class PaymentScheduleType implements \JsonSerializable
@@ -73,8 +73,7 @@ class PaymentScheduleType implements \JsonSerializable
      */
     public function setStartDate(\DateTime $startDate)
     {
-        $strDateOnly = $startDate->format("Y-m-d");
-        $this->startDate = \DateTime::createFromFormat("!Y-m-d", $strDateOnly);
+        $this->startDate = $startDate;
         return $this;
     }
 

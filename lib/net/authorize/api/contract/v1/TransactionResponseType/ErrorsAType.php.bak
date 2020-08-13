@@ -1,40 +1,78 @@
 <?php
 
-namespace net\authorize\api\contract\v1;
+namespace net\authorize\api\contract\v1\TransactionResponseType;
 
 /**
- * Class representing AuDeleteType
- *
- * 
- * XSD Type: auDeleteType
+ * Class representing ErrorsAType
  */
-class AuDeleteType extends AuDetailsType implements \JsonSerializable
+class ErrorsAType
 {
 
     /**
-     * @property \net\authorize\api\contract\v1\CreditCardMaskedType $creditCard
+     * @property
+     * \net\authorize\api\contract\v1\TransactionResponseType\ErrorsAType\ErrorAType[]
+     * $error
      */
-    private $creditCard = null;
+    private $error = null;
 
     /**
-     * Gets as creditCard
+     * Adds as error
      *
-     * @return \net\authorize\api\contract\v1\CreditCardMaskedType
+     * @return self
+     * @param
+     * \net\authorize\api\contract\v1\TransactionResponseType\ErrorsAType\ErrorAType
+     * $error
      */
-    public function getCreditCard()
+    public function addToError(\net\authorize\api\contract\v1\TransactionResponseType\ErrorsAType\ErrorAType $error)
     {
-        return $this->creditCard;
+        $this->error[] = $error;
+        return $this;
     }
 
     /**
-     * Sets a new creditCard
+     * isset error
      *
-     * @param \net\authorize\api\contract\v1\CreditCardMaskedType $creditCard
+     * @param scalar $index
+     * @return boolean
+     */
+    public function issetError($index)
+    {
+        return isset($this->error[$index]);
+    }
+
+    /**
+     * unset error
+     *
+     * @param scalar $index
+     * @return void
+     */
+    public function unsetError($index)
+    {
+        unset($this->error[$index]);
+    }
+
+    /**
+     * Gets as error
+     *
+     * @return
+     * \net\authorize\api\contract\v1\TransactionResponseType\ErrorsAType\ErrorAType[]
+     */
+    public function getError()
+    {
+        return $this->error;
+    }
+
+    /**
+     * Sets a new error
+     *
+     * @param
+     * \net\authorize\api\contract\v1\TransactionResponseType\ErrorsAType\ErrorAType[]
+     * $error
      * @return self
      */
-    public function setCreditCard(\net\authorize\api\contract\v1\CreditCardMaskedType $creditCard)
+    public function setError(array $error)
     {
-        $this->creditCard = $creditCard;
+        $this->error = $error;
         return $this;
     }
 

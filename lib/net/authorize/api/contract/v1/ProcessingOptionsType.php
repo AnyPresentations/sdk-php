@@ -5,7 +5,7 @@ namespace net\authorize\api\contract\v1;
 /**
  * Class representing ProcessingOptionsType
  *
- * 
+ *
  * XSD Type: processingOptions
  */
 class ProcessingOptionsType implements \JsonSerializable

@@ -5,7 +5,7 @@ namespace net\authorize\api\contract\v1;
 /**
  * Class representing WebCheckOutDataTypeTokenType
  *
- * 
+ *
  * XSD Type: webCheckOutDataTypeToken
  */
 class WebCheckOutDataTypeTokenType implements \JsonSerializable

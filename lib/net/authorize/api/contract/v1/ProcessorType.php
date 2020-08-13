@@ -5,7 +5,7 @@ namespace net\authorize\api\contract\v1;
 /**
  * Class representing ProcessorType
  *
- * 
+ *
  * XSD Type: processorType
  */
 class ProcessorType implements \JsonSerializable

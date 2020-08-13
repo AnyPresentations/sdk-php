@@ -5,7 +5,7 @@ namespace net\authorize\api\contract\v1;
 /**
  * Class representing CustomerProfileType
  *
- * 
+ *
  * XSD Type: customerProfileType
  */
 class CustomerProfileType extends CustomerProfileBaseType implements \JsonSerializable

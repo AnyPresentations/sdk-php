@@ -5,7 +5,7 @@ namespace net\authorize\api\contract\v1;
 /**
  * Class representing CreditCardMaskedType
  *
- * 
+ *
  * XSD Type: creditCardMaskedType
  */
 class CreditCardMaskedType implements \JsonSerializable

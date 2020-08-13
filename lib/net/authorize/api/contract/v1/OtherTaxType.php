@@ -5,7 +5,7 @@ namespace net\authorize\api\contract\v1;
 /**
  * Class representing OtherTaxType
  *
- * 
+ *
  * XSD Type: otherTaxType
  */
 class OtherTaxType implements \JsonSerializable

@@ -1,67 +1,64 @@
 <?php
 
-namespace net\authorize\api\contract\v1;
+namespace net\authorize\api\contract\v1\MessagesType;
 
 /**
- * Class representing AuUpdateType
- *
- * 
- * XSD Type: auUpdateType
+ * Class representing MessageAType
  */
-class AuUpdateType extends AuDetailsType implements \JsonSerializable
+class MessageAType
 {
 
     /**
-     * @property \net\authorize\api\contract\v1\CreditCardMaskedType $newCreditCard
+     * @property string $code
      */
-    private $newCreditCard = null;
+    private $code = null;
 
     /**
-     * @property \net\authorize\api\contract\v1\CreditCardMaskedType $oldCreditCard
+     * @property string $text
      */
-    private $oldCreditCard = null;
+    private $text = null;
 
     /**
-     * Gets as newCreditCard
+     * Gets as code
      *
-     * @return \net\authorize\api\contract\v1\CreditCardMaskedType
+     * @return string
      */
-    public function getNewCreditCard()
+    public function getCode()
     {
-        return $this->newCreditCard;
+        return $this->code;
     }
 
     /**
-     * Sets a new newCreditCard
+     * Sets a new code
      *
-     * @param \net\authorize\api\contract\v1\CreditCardMaskedType $newCreditCard
+     * @param string $code
      * @return self
      */
-    public function setNewCreditCard(\net\authorize\api\contract\v1\CreditCardMaskedType $newCreditCard)
+    public function setCode($code)
     {
-        $this->newCreditCard = $newCreditCard;
+        $this->code = $code;
         return $this;
     }
 
     /**
-     * Gets as oldCreditCard
+     * Gets as text
      *
-     * @return \net\authorize\api\contract\v1\CreditCardMaskedType
+     * @return string
      */
-    public function getOldCreditCard()
+    public function getText()
     {
-        return $this->oldCreditCard;
+        return $this->text;
     }
 
     /**
-     * Sets a new oldCreditCard
+     * Sets a new text
      *
-     * @param \net\authorize\api\contract\v1\CreditCardMaskedType $oldCreditCard
+     * @param string $text
      * @return self
      */
-    public function setOldCreditCard(\net\authorize\api\contract\v1\CreditCardMaskedType $oldCreditCard)
+    public function setText($text)
     {
-        $this->oldCreditCard = $oldCreditCard;
+        $this->text = $text;
         return $this;
     }
 

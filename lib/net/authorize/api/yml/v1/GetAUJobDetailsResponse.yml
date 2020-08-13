@@ -21,4 +21,8 @@ net\authorize\api\contract\v1\GetAUJobDetailsResponse:
             accessor:
                 getter: getAuDetails
                 setter: setAuDetails
-            type: net\authorize\api\contract\v1\ListOfAUDetailsType
+            xml_list:
+                inline: true
+                entry_name: auDetails
+                namespace: AnetApi/xml/v1/schema/AnetApiSchema.xsd
+            type: array<net\authorize\api\contract\v1\ListOfAUDetailsType>
